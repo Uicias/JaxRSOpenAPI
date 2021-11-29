@@ -8,29 +8,28 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import fr.istic.taa.jaxrs.dao.generic.UserDAO;
-import fr.istic.taa.jaxrs.domain.User;
+import fr.istic.taa.jaxrs.dao.generic.TeacherDAO;
+import fr.istic.taa.jaxrs.domain.Teacher;
 import io.swagger.v3.oas.annotations.Parameter;
 
-@Path("/user")
+@Path("/teacher")
 @Produces({"application/json", "application/xml"})
-public class UserRessource {
+public class TeacherRessource {
 
-    UserDAO userDAO = new UserDAO();
+    TeacherDAO teacherDAO = new TeacherDAO();
 
     @GET
     @Path("/{id}")
-    public User getUserById(@PathParam("id") long id) {
-        return userDAO.findById(id);
+    public Teacher getTeacherById(@PathParam("id") long id) {
+        return teacherDAO.findById(id);
     }
 
     @POST
     @Path("/create")
     @Consumes("application/json")
-    public Response createUser(
-            @Parameter(description = "User object that needs to be added to the db", required = true) User user){
-        userDAO.create(user);
+    public Response create(
+            @Parameter(description = "Teacher object that needs to be added to the db", required = true) Teacher teacher){
+        teacherDAO.create(teacher);
         return Response.ok().entity("SUCCESS").build();
     }
-
 }
